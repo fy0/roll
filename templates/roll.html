@@ -1,0 +1,57 @@
+
+<%inherit file="base.html"/>
+
+<%block name="head">
+</%block>
+
+<div class="container">
+
+    <p>发起： ${author.username}</p>
+    <p>状态：
+    % if data['status']:
+    开启
+    % else:
+    关闭
+    % endif
+    </p>
+    
+    % if req.current_user() == author:
+        % if data['status']:
+        <a href="${url_for('roll_close', data['index'])}"> 关闭投票</a>
+        % else:
+        <a href="${url_for('roll_open', data['index'])}"> 重开投票</a>    
+        % endif
+    % endif
+
+    <ul>
+    % for i in data['points']:
+        <li>
+        % if i['point'] == max_point:
+            <span style='color:#f00'>${'%03d' % i['point']|h}</span>
+        % else:
+            ${'%03d' % i['point']|h}
+        % endif
+        - ${i['name']|h}</li>
+    % endfor
+    </ul>
+
+    <form method="POST">
+        <input id='nickname' type="text" name="name" placeholder="填入昵称">
+        ${xsrf_token}
+        <button>ROLL</button>
+    </form>
+</div>
+
+
+<%block name="script">
+<script>
+    (function() {
+        $("form").submit(function() {
+            if ($("#nickname").val().trim() == "") {
+                alert('昵称不能为空');
+                return false;
+            }
+        });
+	})();
+</script>
+</%block>
