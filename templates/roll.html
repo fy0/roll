@@ -17,9 +17,9 @@
     
     % if req.current_user() == author:
         % if data['status']:
-        <a href="${url_for('roll_close', data['index'])}"> 关闭投票</a>
+        <a href="${url_for('roll_close', data['index'])}"> 关闭肉点</a>
         % else:
-        <a href="${url_for('roll_open', data['index'])}"> 重开投票</a>    
+        <a href="${url_for('roll_open', data['index'])}"> 重开肉点</a>    
         % endif
     % endif
 
@@ -36,7 +36,7 @@
     </ul>
 
     <form method="POST">
-        <input id='nickname' type="text" name="name" placeholder="填入昵称">
+        <input id='nickname' type="text" name="name" placeholder="这里留下名字">
         ${xsrf_token}
         <button>ROLL</button>
     </form>
